@@ -1,0 +1,142 @@
+{
+    "aws": {
+        "af-south-1": {
+            "short_name": "af-south-1",
+            "long_name": "Africa (Cape Town)",
+            "latitude": -33.928992,
+            "longitude": 18.417396
+        },
+        "ap-east-1": {
+            "short_name": "ap-east-1",
+            "long_name": "Asia Pacific (Hong Kong)",
+            "latitude": 22.2793278,
+            "longitude": 114.1628131
+        },
+        "ap-northeast-1": {
+            "short_name": "ap-northeast-1",
+            "long_name": "Asia Pacific (Tokyo)",
+            "latitude": 35.6828387,
+            "longitude": 139.7594549
+        },
+        "ap-northeast-2": {
+            "short_name": "ap-northeast-2",
+            "long_name": "Asia Pacific (Seoul)",
+            "latitude": 37.5666791,
+            "longitude": 126.9782914
+        },
+        "ap-northeast-3": {
+            "short_name": "ap-northeast-3",
+            "long_name": "Asia Pacific (Osaka)",
+            "latitude": 34.6198813,
+            "longitude": 135.490357
+        },
+        "ap-south-1": {
+            "short_name": "ap-south-1",
+            "long_name": "Asia Pacific (Mumbai)",
+            "latitude": 19.0785451,
+            "longitude": 72.878176
+        },
+        "ap-southeast-1": {
+            "short_name": "ap-southeast-1",
+            "long_name": "Asia Pacific (Singapore)",
+            "latitude": 1.357107,
+            "longitude": 103.8194992
+        },
+        "ap-southeast-2": {
+            "short_name": "ap-southeast-2",
+            "long_name": "Asia Pacific (Sydney)",
+            "latitude": -33.8698439,
+            "longitude": 151.2082848
+        },
+        "ap-southeast-3": {
+            "short_name": "ap-southeast-3",
+            "long_name": "Asia Pacific (Jakarta)",
+            "latitude": -6.1753942,
+            "longitude": 106.827183
+        },
+        "ca-central-1": {
+            "short_name": "ca-central-1",
+            "long_name": "Canada (Central)",
+            "latitude": 45.5031824,
+            "longitude": -73.5698065
+        },
+        "eu-central-1": {
+            "short_name": "eu-central-1",
+            "long_name": "Europe (Frankfurt)",
+            "latitude": 50.1106444,
+            "longitude": 8.6820917
+        },
+        "eu-north-1": {
+            "short_name": "eu-north-1",
+            "long_name": "Europe (Stockholm)",
+            "latitude": 59.3251172,
+            "longitude": 18.0710935
+        },
+        "eu-south-1": {
+            "short_name": "eu-south-1",
+            "long_name": "Europe (Milan)",
+            "latitude": 45.4641943,
+            "longitude": 9.1896346
+        },
+        "eu-west-1": {
+            "short_name": "eu-west-1",
+            "long_name": "Europe (Ireland)",
+            "latitude": 53.3498006,
+            "longitude": -6.2602964
+        },
+        "eu-west-2": {
+            "short_name": "eu-west-2",
+            "long_name": "Europe (London)",
+            "latitude": 51.5073219,
+            "longitude": -0.1276474
+        },
+        "eu-west-3": {
+            "short_name": "eu-west-3",
+            "long_name": "Europe (Paris)",
+            "latitude": 48.8588897,
+            "longitude": 2.3200410217200766
+        },
+        "me-central-1": {
+            "short_name": "me-central-1",
+            "long_name": "Middle East (UAE)",
+            "latitude": 25.074282349999997,
+            "longitude": 55.18853865430702
+        },
+        "me-south-1": {
+            "short_name": "me-south-1",
+            "long_name": "Middle East (Bahrain)",
+            "latitude": 26.1551249,
+            "longitude": 50.5344606
+        },
+        "sa-east-1": {
+            "short_name": "sa-east-1",
+            "long_name": "South America (Sao Paulo)",
+            "latitude": -23.5506507,
+            "longitude": -46.6333824
+        },
+        "us-east-1": {
+            "short_name": "us-east-1",
+            "long_name": "US East (N. Virginia)",
+            "latitude": 39.030019100000004,
+            "longitude": -77.46964646557657
+        },
+        "us-east-2": {
+            "short_name": "us-east-2",
+            "long_name": "US East (Ohio)",
+            "latitude": 39.9622601,
+            "longitude": -83.0007065
+        },
+        "us-west-1": {
+            "short_name": "us-west-1",
+            "long_name": "US West (N. California)",
+            "latitude": 37.7790262,
+            "longitude": -122.419906
+        },
+        "us-west-2": {
+            "short_name": "us-west-2",
+            "long_name": "US West (Oregon)",
+            "latitude": 45.839855,
+            "longitude": -119.7005834
+        }
+    }
+}
