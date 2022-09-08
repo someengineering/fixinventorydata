@@ -38,11 +38,9 @@ jobs:
           pip install tox wheel flake8 build
 
       - name: Run tests
-        working-directory: ./resotodata
         run: tox
 
       - name: Build a binary wheel and a source tarball
-        working-directory: ./resotodata
         run: >-
           python -m
           build
@@ -56,4 +54,4 @@ jobs:
         with:
           user: __token__
           password: ${{ secrets.PYPI_RESOTODATA }}
-          packages_dir: ./resotodata/dist/
+          packages_dir: ./dist/
