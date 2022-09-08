@@ -1,4 +1,4 @@
-import resotomisc
+import resotodata
 from setuptools import setup, find_packages
 
 
@@ -16,16 +16,16 @@ with open("README.md") as f:
 
 
 setup(
-    name=resotomisc.__title__,
-    version=resotomisc.__version__,
-    description=resotomisc.__description__,
-    license=resotomisc.__license__,
+    name=resotodata.__title__,
+    version=resotodata.__version__,
+    description=resotodata.__description__,
+    license=resotodata.__license__,
     packages=find_packages(),
     long_description=readme,
     long_description_content_type="text/markdown",
     entry_points={
         "console_scripts": [
-            "resoto-location-gen = resotomisc.__main__:locationgen",
+            "resotodata-updateregions = resotodata.__main__:update_regions",
         ]
     },
     include_package_data=True,

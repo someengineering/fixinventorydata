@@ -1,2 +1,2 @@
-# `resotomisc`
-Resoto Misc Data
+# `resotodata`
+Public Resoto Data

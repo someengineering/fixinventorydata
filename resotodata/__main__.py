@@ -9,7 +9,7 @@ def main() -> None:
     pass
 
 
-def locationgen() -> None:
+def update_regions() -> None:
     regions = {}
     regions["aws"] = gen_aws_regions()
     write_regions(regions)
@@ -36,7 +36,7 @@ def gen_aws_regions() -> dict:
 
 
 def write_regions(regions: dict) -> None:
-    regions_file = resource_filename("resotomisc", "gen/regions.json")
+    regions_file = resource_filename("resotodata", "gen/regions.json")
     print(f"Writing regions to {regions_file}")
     with open(regions_file, "w") as f:
         json.dump(regions, f, indent=4)
