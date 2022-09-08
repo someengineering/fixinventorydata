@@ -36,7 +36,7 @@ def gen_aws_regions() -> dict:
 
 
 def write_regions(regions: dict) -> None:
-    regions_file = resource_filename("resotodata", "gen/regions.json")
+    regions_file = resource_filename("resotodata", "data/regions.json")
     print(f"Writing regions to {regions_file}")
     with open(regions_file, "w") as f:
         json.dump(regions, f, indent=4)
