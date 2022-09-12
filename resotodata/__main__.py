@@ -6,6 +6,7 @@ from geopy.location import Location
 from typing import Optional
 from bs4 import BeautifulSoup
 
+
 def main() -> None:
     pass
 
@@ -22,12 +23,14 @@ def gen_gcp_regions() -> dict:
     regions = {}
     locations_url = "https://cloud.google.com/about/locations"
     r = requests.get(locations_url)
-    soup =BeautifulSoup(r.text, 'html.parser')
-    for l in soup.find_all('span', {"class": "zone"}):
+    soup = BeautifulSoup(r.text, "html.parser")
+    for l in soup.find_all("span", {"class": "zone"}):
         long_region = l.previous_sibling
         short_region = l.text
         if "(" in short_region and ")" in short_region:
-            short_region = short_region[short_region.find("(") + 1 : short_region.find(")")]
+            short_region = short_region[
+                short_region.find("(") + 1 : short_region.find(")")
+            ]
         location = extract_gcp_location(short_region, long_region)
         location = lookup_location(location)
         regions[short_region] = {
@@ -89,6 +92,7 @@ gcp_override = {
     "europe-north1": "Hamina, Finland",
 }
 
+
 def extract_aws_location(short_region: str, long_region: str) -> str:
     if short_region in aws_override:
         return aws_override[short_region]
@@ -110,7 +114,9 @@ def aws_regions() -> dict:
     with open(endpoint_file, "r") as f:
         endpoints = json.load(f)
         first_partition = next(iter(endpoints.get("partitions", [])), {})
-        regions = {k: v["description"] for k, v in first_partition.get("regions", {}).items()}
+        regions = {
+            k: v["description"] for k, v in first_partition.get("regions", {}).items()
+        }
         return regions
 
 
@@ -118,7 +124,9 @@ def lookup_location(location: str) -> Optional[Location]:
     try:
         print(f"Looking up {location}")
         geolocator = Nominatim(user_agent="ResotoMisc")
-        return geolocator.geocode(location)
+        location = geolocator.geocode(location)
+        print(location.raw)
+        return location
     except Exception:
         return None
 
