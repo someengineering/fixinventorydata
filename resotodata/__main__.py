@@ -28,9 +28,7 @@ def gen_gcp_regions() -> dict:
         long_region = loc.previous_sibling
         short_region = loc.text
         if "(" in short_region and ")" in short_region:
-            short_region = short_region[
-                short_region.find("(") + 1 : short_region.find(")")
-            ]
+            short_region = short_region[short_region.find("(") + 1 : short_region.find(")")]
         location = extract_gcp_location(short_region, long_region)
         location = lookup_location(location)
         regions[short_region] = {
@@ -114,9 +112,7 @@ def aws_regions() -> dict:
     with open(endpoint_file, "r") as f:
         endpoints = json.load(f)
         first_partition = next(iter(endpoints.get("partitions", [])), {})
-        regions = {
-            k: v["description"] for k, v in first_partition.get("regions", {}).items()
-        }
+        regions = {k: v["description"] for k, v in first_partition.get("regions", {}).items()}
         return regions
 
 
