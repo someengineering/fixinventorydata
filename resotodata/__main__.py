@@ -47,7 +47,7 @@ def gen_aws_regions() -> dict:
         location = extract_aws_location(short_region, long_region)
         location = lookup_location(location)
         if location is None:
-            print(f"Failed to lookup {location}")
+            print(f"Failed to lookup {short_region} {long_region}")
             continue
 
         regions[short_region] = {
@@ -88,6 +88,7 @@ gcp_override = {
     "europe-west1": "St. Ghislain, Belgium",
     "europe-west4": "Eemshaven, Netherlands",
     "europe-north1": "Hamina, Finland",
+    "southamerica-west1": "Santiago, Chile",
 }
 
 
@@ -116,13 +117,11 @@ def aws_regions() -> dict:
         return regions
 
 
-def lookup_location(location: str) -> Optional[Location]:
+def lookup_location(short_region: str, long_region: str) -> Optional[Location]:
     try:
-        print(f"Looking up {location}")
+        print(f"Looking up {short_region} {long_region}")
         geolocator = Nominatim(user_agent="ResotoMisc")
-        location = geolocator.geocode(location)
-        print(location.raw)
-        return location
+        return geolocator.geocode(long_region)
     except Exception:
         return None
 
