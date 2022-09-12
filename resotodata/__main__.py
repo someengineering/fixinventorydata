@@ -24,9 +24,9 @@ def gen_gcp_regions() -> dict:
     locations_url = "https://cloud.google.com/about/locations"
     r = requests.get(locations_url)
     soup = BeautifulSoup(r.text, "html.parser")
-    for l in soup.find_all("span", {"class": "zone"}):
-        long_region = l.previous_sibling
-        short_region = l.text
+    for loc in soup.find_all("span", {"class": "zone"}):
+        long_region = loc.previous_sibling
+        short_region = loc.text
         if "(" in short_region and ")" in short_region:
             short_region = short_region[
                 short_region.find("(") + 1 : short_region.find(")")
