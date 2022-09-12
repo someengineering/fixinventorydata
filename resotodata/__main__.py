@@ -17,8 +17,10 @@ def update_regions() -> None:
     regions["aws"] = gen_aws_regions()
     write_regions(regions)
 
+
 def update_colors() -> None:
     write_colors()
+
 
 def gen_gcp_regions() -> dict:
     print("Processing GCP regions")
