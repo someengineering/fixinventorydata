@@ -1,9 +1,10 @@
 import json
+import requests
 from pkg_resources import resource_filename
 from geopy.geocoders import Nominatim
 from geopy.location import Location
 from typing import Optional
-
+from bs4 import BeautifulSoup
 
 def main() -> None:
     pass
@@ -11,16 +12,38 @@ def main() -> None:
 
 def update_regions() -> None:
     regions = {}
+    regions["gcp"] = gen_gcp_regions()
     regions["aws"] = gen_aws_regions()
     write_regions(regions)
 
 
+def gen_gcp_regions() -> dict:
+    print("Processing GCP regions")
+    regions = {}
+    locations_url = "https://cloud.google.com/about/locations"
+    r = requests.get(locations_url)
+    soup =BeautifulSoup(r.text, 'html.parser')
+    for l in soup.find_all('span', {"class": "zone"}):
+        long_region = l.previous_sibling
+        short_region = l.text
+        if "(" in short_region and ")" in short_region:
+            short_region = short_region[short_region.find("(") + 1 : short_region.find(")")]
+        location = extract_gcp_location(short_region, long_region)
+        location = lookup_location(location)
+        regions[short_region] = {
+            "short_name": short_region,
+            "long_name": long_region,
+            "latitude": location.latitude,
+            "longitude": location.longitude,
+        }
+    return regions
+
+
 def gen_aws_regions() -> dict:
-    print("Looking up AWS regions")
+    print("Processing AWS regions")
     regions = {}
     for short_region, long_region in aws_regions().items():
         location = extract_aws_location(short_region, long_region)
-        print(f"{short_region} {location}")
         location = lookup_location(location)
         if location is None:
             print(f"Failed to lookup {location}")
@@ -52,10 +75,31 @@ aws_override = {
     "us-west-2": "Boardman, Oregon, USA",
 }
 
+gcp_override = {
+    "us-west1": "The Dalles, Oregon, USA",
+    "us-west2": "Los Angeles, California, USA",
+    "us-west3": "Salt Lake City, Utah, USA",
+    "us-west4": "Las Vegas, Nevada, USA",
+    "us-east1": "Moncks Corner, South Carolina, USA",
+    "us-east4": "Ashburn, Virginia, USA",
+    "us-central1": "Council Bluffs, Iowa, USA",
+    "us-south1": "Dallas, Texas, USA",
+    "europe-west1": "St. Ghislain, Belgium",
+    "europe-west4": "Eemshaven, Netherlands",
+    "europe-north1": "Hamina, Finland",
+}
 
 def extract_aws_location(short_region: str, long_region: str) -> str:
     if short_region in aws_override:
         return aws_override[short_region]
+    if "(" in long_region and ")" in long_region:
+        return long_region[long_region.find("(") + 1 : long_region.find(")")]
+    return long_region
+
+
+def extract_gcp_location(short_region: str, long_region: str) -> str:
+    if short_region in gcp_override:
+        return gcp_override[short_region]
     if "(" in long_region and ")" in long_region:
         return long_region[long_region.find("(") + 1 : long_region.find(")")]
     return long_region
@@ -72,6 +116,7 @@ def aws_regions() -> dict:
 
 def lookup_location(location: str) -> Optional[Location]:
     try:
+        print(f"Looking up {location}")
         geolocator = Nominatim(user_agent="ResotoMisc")
         return geolocator.geocode(location)
     except Exception:
