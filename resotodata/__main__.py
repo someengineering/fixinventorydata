@@ -17,6 +17,8 @@ def update_regions() -> None:
     regions["aws"] = gen_aws_regions()
     write_regions(regions)
 
+def update_colors() -> None:
+    write_colors()
 
 def gen_gcp_regions() -> dict:
     print("Processing GCP regions")
@@ -124,6 +126,40 @@ def lookup_location(short_region: str, long_region: str) -> Optional[Location]:
         return geolocator.geocode(long_region)
     except Exception:
         return None
+
+
+def write_colors() -> None:
+    colors = {
+        "resoto": {
+            "light": {
+                "main": [0x762DD7, 0x0A253F, 0xAF62F1],
+                "contrast": [0xFFAF37, 0xE59010, 0xB86200],
+                "background": [0xFFFFFF, 0xEBF2FC, 0x3D176E, 0x0F3356],
+            },
+            "dark": {
+                "main": [0xD9B8FF, 0xE98DF7, 0xC38FFF, 0xFFFFFF],
+                "contrast": [0xFFE797, 0x762DD7, 0xFFAF37, 0xE59010],
+                "background": [0x0F3356, 0x0A253F, 0x3D176E, 0x000D19],
+            },
+        },
+        "someengineering": {
+            "light": {
+                "main": [0x0F3356, 0x0054A3, 0x1A83AF],
+                "contrast": [0xFFAF37, 0xE59010, 0xB86200],
+                "background": [0xFFFFFF, 0xEBF2FC, 0x0F3356],
+            },
+            "dark": {
+                "main": [0x89D1F1, 0x1A83AF, 0x0054A3, 0xFFFFFF],
+                "contrast": [0xFFE797, 0xFFAF37, 0xDDA045],
+                "background": [0x0F3356, 0x0A253F, 0x000D19],
+            },
+        },
+    }
+
+    colors_file = resource_filename("resotodata", "data/colors.json")
+    print(f"Writing colors to {colors_file}")
+    with open(colors_file, "w") as f:
+        json.dump(colors, f, indent=4)
 
 
 if __name__ == "__main__":

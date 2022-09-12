@@ -25,7 +25,8 @@ setup(
     long_description_content_type="text/markdown",
     entry_points={
         "console_scripts": [
-            "resotodata-updateregions = resotodata.__main__:update_regions",
+            "resotodata-update-regions = resotodata.__main__:update_regions",
+            "resotodata-update-colors = resotodata.__main__:update_colors",
         ]
     },
     include_package_data=True,
