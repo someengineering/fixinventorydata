@@ -14,9 +14,9 @@ def main() -> None:
 
 def update_regions() -> None:
     regions = {}
+    regions["aws"] = gen_aws_regions()
     regions["digitalocean"] = gen_digitalocean_regions()
     regions["gcp"] = gen_gcp_regions()
-    regions["aws"] = gen_aws_regions()
     write_regions(regions)
 
 
@@ -107,6 +107,7 @@ def write_regions(regions: dict) -> None:
     print(f"Writing regions to {regions_file}")
     with open(regions_file, "w") as f:
         json.dump(regions, f, indent=4)
+        f.write("\n")
 
 
 aws_override = {
@@ -203,6 +204,7 @@ def write_colors() -> None:
     print(f"Writing colors to {colors_file}")
     with open(colors_file, "w") as f:
         json.dump(colors, f, indent=4)
+        f.write("\n")
 
 
 if __name__ == "__main__":
