@@ -15,6 +15,7 @@ def update_regions() -> None:
     regions = {}
     regions["gcp"] = gen_gcp_regions()
     regions["aws"] = gen_aws_regions()
+    regions["digitalocean"] = gen_digitalocean_regions()
     write_regions(regions)
 
 
@@ -22,8 +23,39 @@ def update_colors() -> None:
     write_colors()
 
 
+def gen_digitalocean_regions() -> dict:
+    print("== Processing DigitalOcean regions")
+    # output of command: doctl compute region list -o json | jq "[.[] | {(.slug):.name}] | add"
+    regions_in = {
+        "nyc1": "New York 1",
+        "sfo1": "San Francisco 1",
+        "nyc2": "New York 2",
+        "ams2": "Amsterdam 2",
+        "sgp1": "Singapore 1",
+        "lon1": "London 1",
+        "nyc3": "New York 3",
+        "ams3": "Amsterdam 3",
+        "fra1": "Frankfurt 1",
+        "tor1": "Toronto 1",
+        "sfo2": "San Francisco 2",
+        "blr1": "Bangalore 1",
+        "sfo3": "San Francisco 3",
+        "syd1": "Sydney 1"
+    }
+    regions = {}
+    for slug, name in regions_in.items():
+        loc = lookup_location(name.rsplit(" ", 1)[0])
+        regions[slug] = {
+            "short_name": slug,
+            "long_name": name,
+            "latitude": loc.latitude,
+            "longitude": loc.longitude,
+        }
+    return regions
+
+
 def gen_gcp_regions() -> dict:
-    print("Processing GCP regions")
+    print("== Processing GCP regions")
     regions = {}
     locations_url = "https://cloud.google.com/about/locations"
     r = requests.get(locations_url)
@@ -32,7 +64,7 @@ def gen_gcp_regions() -> dict:
         long_region = loc.previous_sibling
         short_region = loc.text
         if "(" in short_region and ")" in short_region:
-            short_region = short_region[short_region.find("(") + 1 : short_region.find(")")]
+            short_region = short_region[short_region.find("(") + 1: short_region.find(")")]
         location = extract_gcp_location(short_region, long_region)
         location = lookup_location(location)
         regions[short_region] = {
@@ -45,7 +77,7 @@ def gen_gcp_regions() -> dict:
 
 
 def gen_aws_regions() -> dict:
-    print("Processing AWS regions")
+    print("== Processing AWS regions")
     regions = {}
     for short_region, long_region in aws_regions().items():
         location = extract_aws_location(short_region, long_region)
@@ -100,7 +132,7 @@ def extract_aws_location(short_region: str, long_region: str) -> str:
     if short_region in aws_override:
         return aws_override[short_region]
     if "(" in long_region and ")" in long_region:
-        return long_region[long_region.find("(") + 1 : long_region.find(")")]
+        return long_region[long_region.find("(") + 1: long_region.find(")")]
     return long_region
 
 
@@ -108,7 +140,7 @@ def extract_gcp_location(short_region: str, long_region: str) -> str:
     if short_region in gcp_override:
         return gcp_override[short_region]
     if "(" in long_region and ")" in long_region:
-        return long_region[long_region.find("(") + 1 : long_region.find(")")]
+        return long_region[long_region.find("(") + 1: long_region.find(")")]
     return long_region
 
 
@@ -121,11 +153,11 @@ def aws_regions() -> dict:
         return regions
 
 
-def lookup_location(short_region: str, long_region: str) -> Optional[Location]:
+def lookup_location(location: str) -> Optional[Location]:
     try:
-        print(f"Looking up {short_region} {long_region}")
+        print(f"Looking up {location}")
         geolocator = Nominatim(user_agent="ResotoMisc")
-        return geolocator.geocode(long_region)
+        return geolocator.geocode(location)
     except Exception:
         return None
 
