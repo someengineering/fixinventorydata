@@ -1,3 +1,4 @@
+import os
 import json
 import requests
 from pkg_resources import resource_filename
@@ -13,13 +14,51 @@ def main() -> None:
 
 def update_regions() -> None:
     regions = {}
-    regions["gcp"] = gen_gcp_regions()
     regions["aws"] = gen_aws_regions()
+    regions["digitalocean"] = gen_digitalocean_regions()
+    regions["gcp"] = gen_gcp_regions()
     write_regions(regions)
 
 
 def update_colors() -> None:
     write_colors()
+
+
+def gen_digitalocean_regions() -> dict:
+    print("Processing DigitalOcean regions")
+    regions = {}
+    DIGITALOCEAN_TOKEN = os.environ.get("DIGITALOCEAN_TOKEN")
+    regions_url = "https://api.digitalocean.com/v2/regions"
+    if DIGITALOCEAN_TOKEN is None:
+        regions_in = {
+            "nyc1": "New York 1",
+            "sfo1": "San Francisco 1",
+            "nyc2": "New York 2",
+            "ams2": "Amsterdam 2",
+            "sgp1": "Singapore 1",
+            "lon1": "London 1",
+            "nyc3": "New York 3",
+            "ams3": "Amsterdam 3",
+            "fra1": "Frankfurt 1",
+            "tor1": "Toronto 1",
+            "sfo2": "San Francisco 2",
+            "blr1": "Bangalore 1",
+            "sfo3": "San Francisco 3",
+            "syd1": "Sydney 1",
+        }
+    else:
+        headers = {"Authorization": f"Bearer {DIGITALOCEAN_TOKEN}"}
+        r = requests.get(regions_url, headers=headers)
+        regions_in = {reg["slug"]: reg["name"] for reg in r.json()["regions"]}
+    for short_region, long_region in regions_in.items():
+        location = lookup_location(short_region, long_region.rsplit(" ", 1)[0])
+        regions[short_region] = {
+            "short_name": short_region,
+            "long_name": long_region,
+            "latitude": location.latitude,
+            "longitude": location.longitude,
+        }
+    return regions
 
 
 def gen_gcp_regions() -> dict:
@@ -34,7 +73,7 @@ def gen_gcp_regions() -> dict:
         if "(" in short_region and ")" in short_region:
             short_region = short_region[short_region.find("(") + 1 : short_region.find(")")]
         location = extract_gcp_location(short_region, long_region)
-        location = lookup_location(location)
+        location = lookup_location(short_region, location)
         regions[short_region] = {
             "short_name": short_region,
             "long_name": long_region,
@@ -49,7 +88,7 @@ def gen_aws_regions() -> dict:
     regions = {}
     for short_region, long_region in aws_regions().items():
         location = extract_aws_location(short_region, long_region)
-        location = lookup_location(location)
+        location = lookup_location(short_region, location)
         if location is None:
             print(f"Failed to lookup {short_region} {long_region}")
             continue
@@ -68,6 +107,7 @@ def write_regions(regions: dict) -> None:
     print(f"Writing regions to {regions_file}")
     with open(regions_file, "w") as f:
         json.dump(regions, f, indent=4)
+        f.write("\n")
 
 
 aws_override = {
@@ -125,7 +165,9 @@ def lookup_location(short_region: str, long_region: str) -> Optional[Location]:
     try:
         print(f"Looking up {short_region} {long_region}")
         geolocator = Nominatim(user_agent="ResotoMisc")
-        return geolocator.geocode(long_region)
+        loc = geolocator.geocode(long_region)
+        print(f"Found {loc}")
+        return loc
     except Exception:
         return None
 
@@ -162,6 +204,7 @@ def write_colors() -> None:
     print(f"Writing colors to {colors_file}")
     with open(colors_file, "w") as f:
         json.dump(colors, f, indent=4)
+        f.write("\n")
 
 
 if __name__ == "__main__":
