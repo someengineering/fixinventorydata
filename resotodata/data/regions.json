@@ -36,6 +36,12 @@
             "latitude": 19.0785451,
             "longitude": 72.878176
         },
+        "ap-south-2": {
+            "short_name": "ap-south-2",
+            "long_name": "Asia Pacific (Hyderabad)",
+            "latitude": 17.360589,
+            "longitude": 78.4740613
+        },
         "ap-southeast-1": {
             "short_name": "ap-southeast-1",
             "long_name": "Asia Pacific (Singapore)",
@@ -51,8 +57,14 @@
         "ap-southeast-3": {
             "short_name": "ap-southeast-3",
             "long_name": "Asia Pacific (Jakarta)",
-            "latitude": -6.1753942,
-            "longitude": 106.827183
+            "latitude": -6.1752489,
+            "longitude": 106.8270462
+        },
+        "ap-southeast-4": {
+            "short_name": "ap-southeast-4",
+            "long_name": "Asia Pacific (Melbourne)",
+            "latitude": -37.8142176,
+            "longitude": 144.9631608
         },
         "ca-central-1": {
             "short_name": "ca-central-1",
@@ -66,6 +78,12 @@
             "latitude": 50.1106444,
             "longitude": 8.6820917
         },
+        "eu-central-2": {
+            "short_name": "eu-central-2",
+            "long_name": "Europe (Zurich)",
+            "latitude": 47.3744489,
+            "longitude": 8.5410422
+        },
         "eu-north-1": {
             "short_name": "eu-north-1",
             "long_name": "Europe (Stockholm)",
@@ -77,6 +95,12 @@
             "long_name": "Europe (Milan)",
             "latitude": 45.4641943,
             "longitude": 9.1896346
+        },
+        "eu-south-2": {
+            "short_name": "eu-south-2",
+            "long_name": "Europe (Spain)",
+            "latitude": 39.3260685,
+            "longitude": -4.8379791
         },
         "eu-west-1": {
             "short_name": "eu-west-1",
@@ -93,8 +117,8 @@
         "eu-west-3": {
             "short_name": "eu-west-3",
             "long_name": "Europe (Paris)",
-            "latitude": 48.8588897,
-            "longitude": 2.3200410217200766
+            "latitude": 48.8534951,
+            "longitude": 2.3483915
         },
         "me-central-1": {
             "short_name": "me-central-1",
@@ -137,12 +161,60 @@
             "long_name": "US West (Oregon)",
             "latitude": 45.839855,
             "longitude": -119.700583
+        },
+        "global": {
+            "short_name": "global",
+            "long_name": "Global",
+            "latitude": 39.030019100000004,
+            "longitude": -77.46964646557657
         }
     },
     "digitalocean": {
+        "ams2": {
+            "short_name": "ams2",
+            "long_name": "Amsterdam 2",
+            "latitude": 52.3730796,
+            "longitude": 4.8924534
+        },
+        "ams3": {
+            "short_name": "ams3",
+            "long_name": "Amsterdam 3",
+            "latitude": 52.3730796,
+            "longitude": 4.8924534
+        },
+        "blr1": {
+            "short_name": "blr1",
+            "long_name": "Bangalore 1",
+            "latitude": 12.9767936,
+            "longitude": 77.590082
+        },
+        "fra1": {
+            "short_name": "fra1",
+            "long_name": "Frankfurt 1",
+            "latitude": 50.1106444,
+            "longitude": 8.6820917
+        },
+        "lon1": {
+            "short_name": "lon1",
+            "long_name": "London 1",
+            "latitude": 51.5073359,
+            "longitude": -0.12765
+        },
         "nyc1": {
             "short_name": "nyc1",
             "long_name": "New York 1",
+            "latitude": 40.7127281,
+            "longitude": -74.0060152
+        },
+        "nyc2": {
+            "short_name": "nyc2",
+            "long_name": "New York 2",
+            "latitude": 40.7127281,
+            "longitude": -74.0060152
+        },
+        "nyc3": {
+            "short_name": "nyc3",
+            "long_name": "New York 3",
             "latitude": 40.7127281,
             "longitude": -74.0060152
         },
@@ -152,65 +224,11 @@
             "latitude": 37.7790262,
             "longitude": -122.419906
         },
-        "nyc2": {
-            "short_name": "nyc2",
-            "long_name": "New York 2",
-            "latitude": 40.7127281,
-            "longitude": -74.0060152
-        },
-        "ams2": {
-            "short_name": "ams2",
-            "long_name": "Amsterdam 2",
-            "latitude": 52.3730796,
-            "longitude": 4.8924534
-        },
-        "sgp1": {
-            "short_name": "sgp1",
-            "long_name": "Singapore 1",
-            "latitude": 1.357107,
-            "longitude": 103.8194992
-        },
-        "lon1": {
-            "short_name": "lon1",
-            "long_name": "London 1",
-            "latitude": 51.5073359,
-            "longitude": -0.12765
-        },
-        "nyc3": {
-            "short_name": "nyc3",
-            "long_name": "New York 3",
-            "latitude": 40.7127281,
-            "longitude": -74.0060152
-        },
-        "ams3": {
-            "short_name": "ams3",
-            "long_name": "Amsterdam 3",
-            "latitude": 52.3730796,
-            "longitude": 4.8924534
-        },
-        "fra1": {
-            "short_name": "fra1",
-            "long_name": "Frankfurt 1",
-            "latitude": 50.1106444,
-            "longitude": 8.6820917
-        },
-        "tor1": {
-            "short_name": "tor1",
-            "long_name": "Toronto 1",
-            "latitude": 43.6534817,
-            "longitude": -79.3839347
-        },
         "sfo2": {
             "short_name": "sfo2",
             "long_name": "San Francisco 2",
             "latitude": 37.7790262,
             "longitude": -122.419906
-        },
-        "blr1": {
-            "short_name": "blr1",
-            "long_name": "Bangalore 1",
-            "latitude": 12.9767936,
-            "longitude": 77.590082
         },
         "sfo3": {
             "short_name": "sfo3",
@@ -218,37 +236,193 @@
             "latitude": 37.7790262,
             "longitude": -122.419906
         },
+        "sgp1": {
+            "short_name": "sgp1",
+            "long_name": "Singapore 1",
+            "latitude": 1.357107,
+            "longitude": 103.8194992
+        },
         "syd1": {
             "short_name": "syd1",
             "long_name": "Sydney 1",
             "latitude": -33.8698439,
             "longitude": 151.2082848
+        },
+        "tor1": {
+            "short_name": "tor1",
+            "long_name": "Toronto 1",
+            "latitude": 43.6534733,
+            "longitude": -79.383961
         }
     },
     "gcp": {
-        "us-west1": {
-            "short_name": "us-west1",
-            "long_name": "Oregon",
-            "latitude": 45.6015056,
-            "longitude": -121.1841587
+        "asia-east1": {
+            "short_name": "asia-east1",
+            "long_name": "Taiwan",
+            "latitude": 23.9739374,
+            "longitude": 120.9820179
         },
-        "us-west2": {
-            "short_name": "us-west2",
-            "long_name": "Los Angeles",
-            "latitude": 34.0536909,
-            "longitude": -118.242766
+        "asia-east2": {
+            "short_name": "asia-east2",
+            "long_name": "Hong Kong",
+            "latitude": 22.2793278,
+            "longitude": 114.1628131
         },
-        "us-west3": {
-            "short_name": "us-west3",
-            "long_name": "Salt Lake City",
-            "latitude": 40.7596198,
-            "longitude": -111.886797
+        "asia-northeast1": {
+            "short_name": "asia-northeast1",
+            "long_name": "Tokyo",
+            "latitude": 35.6812665,
+            "longitude": 139.757653
         },
-        "us-west4": {
-            "short_name": "us-west4",
-            "long_name": "Las Vegas",
-            "latitude": 36.1672559,
-            "longitude": -115.148516
+        "asia-northeast2": {
+            "short_name": "asia-northeast2",
+            "long_name": "Osaka",
+            "latitude": 34.661629000000005,
+            "longitude": 135.49992679245517
+        },
+        "asia-northeast3": {
+            "short_name": "asia-northeast3",
+            "long_name": "Seoul",
+            "latitude": 37.5666791,
+            "longitude": 126.9782914
+        },
+        "asia-south1": {
+            "short_name": "asia-south1",
+            "long_name": "Mumbai",
+            "latitude": 19.0785451,
+            "longitude": 72.878176
+        },
+        "asia-south2": {
+            "short_name": "asia-south2",
+            "long_name": "Delhi",
+            "latitude": 28.6517178,
+            "longitude": 77.2219388
+        },
+        "asia-southeast1": {
+            "short_name": "asia-southeast1",
+            "long_name": "Singapore",
+            "latitude": 1.357107,
+            "longitude": 103.8194992
+        },
+        "asia-southeast2": {
+            "short_name": "asia-southeast2",
+            "long_name": "Jakarta",
+            "latitude": -6.1752489,
+            "longitude": 106.8270462
+        },
+        "australia-southeast1": {
+            "short_name": "australia-southeast1",
+            "long_name": "Sydney",
+            "latitude": -33.8698439,
+            "longitude": 151.2082848
+        },
+        "australia-southeast2": {
+            "short_name": "australia-southeast2",
+            "long_name": "Melbourne",
+            "latitude": -37.8142176,
+            "longitude": 144.9631608
+        },
+        "europe-central2": {
+            "short_name": "europe-central2",
+            "long_name": "Warsaw",
+            "latitude": 52.2319581,
+            "longitude": 21.0067249
+        },
+        "europe-north1": {
+            "short_name": "europe-north1",
+            "long_name": "Finland",
+            "latitude": 60.5688901,
+            "longitude": 27.1881877
+        },
+        "europe-southwest1": {
+            "short_name": "europe-southwest1",
+            "long_name": "Madrid",
+            "latitude": 40.4167047,
+            "longitude": -3.7035825
+        },
+        "europe-west1": {
+            "short_name": "europe-west1",
+            "long_name": "Belgium",
+            "latitude": 50.4477484,
+            "longitude": 3.8195241
+        },
+        "europe-west12": {
+            "short_name": "europe-west12",
+            "long_name": "Turin",
+            "latitude": 45.0677551,
+            "longitude": 7.6824892
+        },
+        "europe-west2": {
+            "short_name": "europe-west2",
+            "long_name": "London",
+            "latitude": 51.5073359,
+            "longitude": -0.12765
+        },
+        "europe-west3": {
+            "short_name": "europe-west3",
+            "long_name": "Frankfurt",
+            "latitude": 50.1106444,
+            "longitude": 8.6820917
+        },
+        "europe-west4": {
+            "short_name": "europe-west4",
+            "long_name": "Netherlands",
+            "latitude": 53.44847365,
+            "longitude": 6.849962720298231
+        },
+        "europe-west6": {
+            "short_name": "europe-west6",
+            "long_name": "Zurich",
+            "latitude": 47.3744489,
+            "longitude": 8.5410422
+        },
+        "europe-west8": {
+            "short_name": "europe-west8",
+            "long_name": "Milan",
+            "latitude": 45.4641943,
+            "longitude": 9.1896346
+        },
+        "europe-west9": {
+            "short_name": "europe-west9",
+            "long_name": "Paris",
+            "latitude": 48.8534951,
+            "longitude": 2.3483915
+        },
+        "me-central1": {
+            "short_name": "me-central1",
+            "long_name": "Doha",
+            "latitude": 25.2856329,
+            "longitude": 51.5264162
+        },
+        "me-west1": {
+            "short_name": "me-west1",
+            "long_name": "Tel Aviv",
+            "latitude": 32.0852997,
+            "longitude": 34.7818064
+        },
+        "northamerica-northeast1": {
+            "short_name": "northamerica-northeast1",
+            "long_name": "Montr\u00e9al",
+            "latitude": 45.5031824,
+            "longitude": -73.5698065
+        },
+        "northamerica-northeast2": {
+            "short_name": "northamerica-northeast2",
+            "long_name": "Toronto",
+            "latitude": 43.6534733,
+            "longitude": -79.383961
+        },
+        "southamerica-east1": {
+            "short_name": "southamerica-east1",
+            "long_name": "S\u00e3o Paulo",
+            "latitude": -23.5506507,
+            "longitude": -46.6333824
+        },
+        "southamerica-west1": {
+            "short_name": "southamerica-west1",
+            "long_name": "Santiago",
+            "latitude": -33.4377756,
+            "longitude": -70.6504502
         },
         "us-central1": {
             "short_name": "us-central1",
@@ -280,161 +454,29 @@
             "latitude": 32.7762719,
             "longitude": -96.7968559
         },
-        "northamerica-northeast1": {
-            "short_name": "northamerica-northeast1",
-            "long_name": "Montr\u00e9al",
-            "latitude": 45.5031824,
-            "longitude": -73.5698065
+        "us-west1": {
+            "short_name": "us-west1",
+            "long_name": "Oregon",
+            "latitude": 45.6015056,
+            "longitude": -121.1841587
         },
-        "northamerica-northeast2": {
-            "short_name": "northamerica-northeast2",
-            "long_name": "Toronto",
-            "latitude": 43.6534817,
-            "longitude": -79.3839347
+        "us-west2": {
+            "short_name": "us-west2",
+            "long_name": "Los Angeles",
+            "latitude": 34.0536909,
+            "longitude": -118.242766
         },
-        "southamerica-west1": {
-            "short_name": "southamerica-west1",
-            "long_name": "Santiago",
-            "latitude": -33.4377756,
-            "longitude": -70.6504502
+        "us-west3": {
+            "short_name": "us-west3",
+            "long_name": "Salt Lake City",
+            "latitude": 40.7596198,
+            "longitude": -111.886797
         },
-        "southamerica-east1": {
-            "short_name": "southamerica-east1",
-            "long_name": "S\u00e3o Paulo",
-            "latitude": -23.5506507,
-            "longitude": -46.6333824
-        },
-        "europe-west2": {
-            "short_name": "europe-west2",
-            "long_name": "London",
-            "latitude": 51.5073359,
-            "longitude": -0.12765
-        },
-        "europe-west1": {
-            "short_name": "europe-west1",
-            "long_name": "Belgium",
-            "latitude": 50.4477484,
-            "longitude": 3.8195241
-        },
-        "europe-west4": {
-            "short_name": "europe-west4",
-            "long_name": "Netherlands",
-            "latitude": 53.44847365,
-            "longitude": 6.849962720298231
-        },
-        "europe-west6": {
-            "short_name": "europe-west6",
-            "long_name": "Zurich",
-            "latitude": 47.3744489,
-            "longitude": 8.5410422
-        },
-        "europe-west3": {
-            "short_name": "europe-west3",
-            "long_name": "Frankfurt",
-            "latitude": 50.1106444,
-            "longitude": 8.6820917
-        },
-        "europe-north1": {
-            "short_name": "europe-north1",
-            "long_name": "Finland",
-            "latitude": 60.5688901,
-            "longitude": 27.1881877
-        },
-        "europe-central2": {
-            "short_name": "europe-central2",
-            "long_name": "Warsaw",
-            "latitude": 52.2319581,
-            "longitude": 21.0067249
-        },
-        "europe-west8": {
-            "short_name": "europe-west8",
-            "long_name": "Milan",
-            "latitude": 45.4641943,
-            "longitude": 9.1896346
-        },
-        "europe-southwest1": {
-            "short_name": "europe-southwest1",
-            "long_name": "Madrid",
-            "latitude": 40.4167047,
-            "longitude": -3.7035825
-        },
-        "europe-west9": {
-            "short_name": "europe-west9",
-            "long_name": "Paris",
-            "latitude": 48.8588897,
-            "longitude": 2.3200410217200766
-        },
-        "asia-south1": {
-            "short_name": "asia-south1",
-            "long_name": "Mumbai",
-            "latitude": 19.0785451,
-            "longitude": 72.878176
-        },
-        "asia-south2": {
-            "short_name": "asia-south2",
-            "long_name": "Delhi",
-            "latitude": 28.6517178,
-            "longitude": 77.2219388
-        },
-        "asia-southeast1": {
-            "short_name": "asia-southeast1",
-            "long_name": "Singapore",
-            "latitude": 1.357107,
-            "longitude": 103.8194992
-        },
-        "asia-southeast2": {
-            "short_name": "asia-southeast2",
-            "long_name": "Jakarta",
-            "latitude": -6.1753942,
-            "longitude": 106.827183
-        },
-        "asia-east2": {
-            "short_name": "asia-east2",
-            "long_name": "Hong Kong",
-            "latitude": 22.2793278,
-            "longitude": 114.1628131
-        },
-        "asia-east1": {
-            "short_name": "asia-east1",
-            "long_name": "Taiwan",
-            "latitude": 23.9739374,
-            "longitude": 120.9820179
-        },
-        "asia-northeast1": {
-            "short_name": "asia-northeast1",
-            "long_name": "Tokyo",
-            "latitude": 35.6812665,
-            "longitude": 139.757653
-        },
-        "asia-northeast2": {
-            "short_name": "asia-northeast2",
-            "long_name": "Osaka",
-            "latitude": 34.661629000000005,
-            "longitude": 135.49992679245517
-        },
-        "australia-southeast1": {
-            "short_name": "australia-southeast1",
-            "long_name": "Sydney",
-            "latitude": -33.8698439,
-            "longitude": 151.2082848
-        },
-        "australia-southeast2": {
-            "short_name": "australia-southeast2",
-            "long_name": "Melbourne",
-            "latitude": -37.8142176,
-            "longitude": 144.9631608
-        },
-        "asia-northeast3": {
-            "short_name": "asia-northeast3",
-            "long_name": "Seoul",
-            "latitude": 37.5666791,
-            "longitude": 126.9782914
-        },
-        "me-west1": {
-            "short_name": "me-west1",
-            "long_name": "Tel Aviv",
-            "latitude": 32.0852997,
-            "longitude": 34.7818064
+        "us-west4": {
+            "short_name": "us-west4",
+            "long_name": "Las Vegas",
+            "latitude": 36.1672559,
+            "longitude": -115.148516
         }
     }
 }

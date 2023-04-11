@@ -50,7 +50,7 @@ def gen_digitalocean_regions() -> dict:
         headers = {"Authorization": f"Bearer {DIGITALOCEAN_TOKEN}"}
         r = requests.get(regions_url, headers=headers)
         regions_in = {reg["slug"]: reg["name"] for reg in r.json()["regions"]}
-    for short_region, long_region in regions_in.items():
+    for short_region, long_region in sorted(regions_in.items()):
         location = lookup_location(short_region, long_region.rsplit(" ", 1)[0])
         regions[short_region] = {
             "short_name": short_region,
@@ -67,7 +67,7 @@ def gen_gcp_regions() -> dict:
     locations_url = "https://cloud.google.com/about/locations"
     r = requests.get(locations_url)
     soup = BeautifulSoup(r.text, "html.parser")
-    for loc in soup.find_all("span", {"class": "zone"}):
+    for loc in sorted(soup.find_all("span", {"class": "zone"}), key=lambda x: x.text):
         long_region = loc.previous_sibling
         short_region = loc.text
         if "(" in short_region and ")" in short_region:
@@ -86,7 +86,7 @@ def gen_gcp_regions() -> dict:
 def gen_aws_regions() -> dict:
     print("Processing AWS regions")
     regions = {}
-    for short_region, long_region in aws_regions().items():
+    for short_region, long_region in sorted(aws_regions().items()):
         location = extract_aws_location(short_region, long_region)
         location = lookup_location(short_region, location)
         if location is None:
@@ -99,6 +99,8 @@ def gen_aws_regions() -> dict:
             "latitude": location.latitude,
             "longitude": location.longitude,
         }
+    # AWS has "global" resources which are served via us-east-1
+    regions["global"] = {**regions["us-east-1"], "short_name": "global", "long_name": "Global"}
     return regions
 
 
