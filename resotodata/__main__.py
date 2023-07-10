@@ -1,7 +1,9 @@
 import os
 import json
+import shutil
 import requests
 import tempfile
+import subprocess
 from pkg_resources import resource_filename
 from geopy.geocoders import Nominatim
 from geopy.location import Location
@@ -213,13 +215,75 @@ def write_colors() -> None:
 
 
 def write_ccfdataset() -> None:
-    ccfdataset = {}
+    ccfdataset = get_ccfdataset()
 
     ccfdataset_file = resource_filename("resotodata", "data/co2.json")
     print(f"Writing CCF dataset to {ccfdataset_file}")
     with open(ccfdataset_file, "w") as f:
         json.dump(ccfdataset, f, indent=4)
         f.write("\n")
+
+
+def get_ccfdataset() -> dict:
+    print("Checking if git and npm are installed")
+    for tool in ("git", "npm"):
+        if not shutil.which(tool):
+            raise RuntimeError(f"{tool} not found in path")
+
+    ccfdataset = {}
+    ccfrepo = "https://github.com/cloud-carbon-footprint/cloud-carbon-footprint.git"
+
+    export_ts = """import {
+  AWS_CLOUD_CONSTANTS,
+  AWS_EMISSIONS_FACTORS_METRIC_TON_PER_KWH,
+} from './packages/aws/src/domain/AwsFootprintEstimationConstants'
+import { GCP_CLOUD_CONSTANTS, getGCPEmissionsFactors } from './packages/gcp/src/domain/GcpFootprintEstimationConstants'
+import {
+  AZURE_CLOUD_CONSTANTS,
+  AZURE_EMISSIONS_FACTORS_METRIC_TON_PER_KWH,
+} from './packages/azure/src/domain/AzureFootprintEstimationConstants'
+import { configLoader } from '@cloud-carbon-footprint/common'
+
+const combinedDictionary: { [key: string]: any } = {
+  aws: {
+    AWS_CLOUD_CONSTANTS: AWS_CLOUD_CONSTANTS,
+    AWS_EMISSIONS_FACTORS_METRIC_TON_PER_KWH: AWS_EMISSIONS_FACTORS_METRIC_TON_PER_KWH,
+  },
+  gcp: {
+    GCP_CLOUD_CONSTANTS: GCP_CLOUD_CONSTANTS,
+    GCP_EMISSIONS_FACTORS_METRIC_TON_PER_KWH: getGCPEmissionsFactors(),
+  },
+  azure: {
+    AZURE_CLOUD_CONSTANTS: AZURE_CLOUD_CONSTANTS,
+    AZURE_EMISSIONS_FACTORS_METRIC_TON_PER_KWH: AZURE_EMISSIONS_FACTORS_METRIC_TON_PER_KWH,
+  },
+}
+configLoader().GCP.USE_CARBON_FREE_ENERGY_PERCENTAGE = true
+combinedDictionary['gcp']['GCP_EMISSIONS_FACTORS_METRIC_TON_PER_KWH_CFE'] = getGCPEmissionsFactors()
+
+console.log(JSON.stringify(combinedDictionary, null, 2))
+"""
+
+    with tempfile.TemporaryDirectory() as tmpdir:
+        print(f"Cloning {ccfrepo} to {tmpdir}")
+        subprocess.run(["git", "clone", ccfrepo, tmpdir], check=True)
+        print(f"Installing dependencies in {tmpdir}")
+        subprocess.run(["npm", "install", "--legacy-peer-deps", "--silent"], cwd=tmpdir, check=True)
+        print("Installing ts-node")
+        subprocess.run(["npm", "install", "--silent", "ts-node"], cwd=tmpdir, check=True)
+
+        export_file = os.path.join(tmpdir, "export.ts")
+        with open(export_file, "w") as f:
+            f.write(export_ts)
+
+        print("Exporting CCF dataset constants")
+        result = subprocess.run(
+            ["./node_modules/.bin/ts-node", "export.ts"], cwd=tmpdir, check=True, capture_output=True, text=True
+        )
+
+    ccfdataset = json.loads(result.stdout)
+    return ccfdataset
+
 
 if __name__ == "__main__":
     main()
