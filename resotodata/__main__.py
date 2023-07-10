@@ -230,7 +230,6 @@ def get_ccfdataset() -> dict:
         if not shutil.which(tool):
             raise RuntimeError(f"{tool} not found in path")
 
-    ccfdataset = {}
     ccfrepo = "https://github.com/cloud-carbon-footprint/cloud-carbon-footprint.git"
 
     export_ts = """import {
@@ -281,8 +280,7 @@ console.log(JSON.stringify(combinedDictionary, null, 2))
             ["./node_modules/.bin/ts-node", "export.ts"], cwd=tmpdir, check=True, capture_output=True, text=True
         )
 
-    ccfdataset = json.loads(result.stdout)
-    return ccfdataset
+    return json.loads(result.stdout)
 
 
 if __name__ == "__main__":
