@@ -1,6 +1,7 @@
 import os
 import json
 import requests
+import tempfile
 from pkg_resources import resource_filename
 from geopy.geocoders import Nominatim
 from geopy.location import Location
@@ -22,6 +23,10 @@ def update_regions() -> None:
 
 def update_colors() -> None:
     write_colors()
+
+
+def update_ccfdataset() -> None:
+    write_ccfdataset()
 
 
 def gen_digitalocean_regions() -> dict:
@@ -206,6 +211,15 @@ def write_colors() -> None:
         json.dump(colors, f, indent=4)
         f.write("\n")
 
+
+def write_ccfdataset() -> None:
+    ccfdataset = {}
+
+    ccfdataset_file = resource_filename("resotodata", "data/co2.json")
+    print(f"Writing CCF dataset to {ccfdataset_file}")
+    with open(ccfdataset_file, "w") as f:
+        json.dump(ccfdataset, f, indent=4)
+        f.write("\n")
 
 if __name__ == "__main__":
     main()
