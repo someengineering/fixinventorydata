@@ -217,7 +217,7 @@ def write_colors() -> None:
 def write_ccfdataset() -> None:
     ccfdataset = get_ccfdataset()
 
-    ccfdataset_file = resource_filename("resotodata", "data/co2.json")
+    ccfdataset_file = resource_filename("resotodata", "data/ccfdataset.json")
     print(f"Writing CCF dataset to {ccfdataset_file}")
     with open(ccfdataset_file, "w") as f:
         json.dump(ccfdataset, f, indent=4)
