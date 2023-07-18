@@ -1,4 +1,5 @@
 import os
+import venv
 import json
 import shutil
 import requests
@@ -29,6 +30,10 @@ def update_colors() -> None:
 
 def update_ccfdataset() -> None:
     write_ccfdataset()
+
+
+def update_instances() -> None:
+    write_instances()
 
 
 def gen_digitalocean_regions() -> dict:
@@ -224,6 +229,35 @@ def write_ccfdataset() -> None:
         f.write("\n")
 
 
+def write_instances() -> None:
+    instances = get_instances()
+
+    instances_file = resource_filename("resotodata", "data/instances.json")
+    print(f"Writing instances dataset to {instances_file}")
+    with open(instances_file, "w") as f:
+        json.dump(instances, f, indent=4)
+        f.write("\n")
+
+    strip_instances(instances)
+
+    stripped_instances_file = resource_filename("resotodata", "data/stripped_instances.json")
+    print(f"Writing instances dataset to {stripped_instances_file}")
+    with open(stripped_instances_file, "w") as f:
+        json.dump(instances, f, indent=4)
+        f.write("\n")
+
+
+def strip_instances(instances: dict) -> None:
+    print("Stripping instance data")
+    for cloud, cloud_data in instances.items():
+        for instance_type, instance_type_data in cloud_data.items():
+            for region, region_pricing_data in instance_type_data.get("pricing", {}).items():
+                for key in list(region_pricing_data.keys()):
+                    if key not in ("dedicated", "linux", "unknown"):
+                        print(f"Removing {key} from {cloud} {instance_type} {region} pricing data")
+                        del region_pricing_data[key]
+
+
 def get_ccfdataset() -> dict:
     print("Checking if git and npm are installed")
     for tool in ("git", "npm"):
@@ -281,6 +315,50 @@ console.log(JSON.stringify(combinedDictionary, null, 2))
         )
 
     return json.loads(result.stdout)
+
+
+def get_instances() -> dict:
+    return {"aws": get_aws_instances()}
+
+
+def get_aws_instances() -> dict:
+    print("Checking if git is installed")
+    for tool in ("git",):
+        if not shutil.which(tool):
+            raise RuntimeError(f"{tool} not found in path")
+
+    ec2instancesrepo = "https://github.com/vantage-sh/ec2instances.info.git"
+
+    with tempfile.TemporaryDirectory() as tmpdir:
+        print(f"Cloning {ec2instancesrepo} to {tmpdir}")
+        subprocess.run(["git", "clone", ec2instancesrepo, tmpdir], check=True)
+
+        # Create venv
+        venv_dir = os.path.join(tmpdir, "venv")
+        venv.create(venv_dir, with_pip=True)
+
+        # Paths to python and pip executables in venv
+        venv_python = os.path.join(venv_dir, "bin", "python")
+        venv_pip = os.path.join(venv_dir, "bin", "pip")
+
+        print(f"Installing dependencies in {tmpdir}")
+        subprocess.run([venv_pip, "install", "-r", "requirements.txt"], cwd=tmpdir, check=True)
+        print("Invoking build")
+        subprocess.run([venv_python, "-m", "invoke", "-T", "3600", "build"], cwd=tmpdir, check=True)
+
+        instances_file = os.path.join(tmpdir, "www", "instances.json")
+        with open(instances_file) as f:
+            instance_types = json.load(f)
+
+        instances = {}
+        for instance_type in instance_types:
+            instance_type_name = instance_type.get("instance_type")
+            if instance_type_name is None:
+                print(f"Skipping invalid instance type: {instance_type}")
+                continue
+            instances[instance_type_name] = instance_type
+
+        return instances
 
 
 if __name__ == "__main__":

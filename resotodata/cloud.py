@@ -1,6 +1,6 @@
-import json
-from pkg_resources import resource_filename
+from resotodata.utils import LazyLoadedDict
 
-data_file = resource_filename("resotodata", "data/regions.json")
-with open(data_file) as f:
-    regions = json.load(f)
+
+regions = LazyLoadedDict("regions.json")
+instances = LazyLoadedDict("instances.json")
+stripped_instances = LazyLoadedDict("stripped_instances.json")

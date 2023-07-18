@@ -28,6 +28,7 @@ setup(
             "resotodata-update-regions = resotodata.__main__:update_regions",
             "resotodata-update-colors = resotodata.__main__:update_colors",
             "resotodata-update-ccfdataset = resotodata.__main__:update_ccfdataset",
+            "resotodata-update-instances = resotodata.__main__:update_instances",
         ]
     },
     include_package_data=True,
