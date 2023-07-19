@@ -232,12 +232,6 @@ def write_ccfdataset() -> None:
 def write_instances() -> None:
     instances = get_instances()
 
-    ec2instancesdataset_file = resource_filename("resotodata", "data/ec2instancesdataset.json")
-    print(f"Writing instances dataset to {ec2instancesdataset_file}")
-    with open(ec2instancesdataset_file, "w") as f:
-        json.dump(instances, f, indent=4)
-        f.write("\n")
-
     strip_instances(instances)
 
     instances_file = resource_filename("resotodata", "data/instances.json")
