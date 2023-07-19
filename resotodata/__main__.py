@@ -247,6 +247,15 @@ def write_instances() -> None:
         f.write("\n")
 
 
+def is_float(n):
+    try:
+        _ = float(n)
+    except ValueError:
+        return False
+    else:
+        return True
+
+
 def strip_instances(instances: dict) -> None:
     print("Stripping instance data")
     for cloud, cloud_data in instances.items():
@@ -256,6 +265,14 @@ def strip_instances(instances: dict) -> None:
                     if key not in ("dedicated", "linux", "unknown"):
                         print(f"Removing {key} from {cloud} {instance_type} {region} pricing data")
                         del region_pricing_data[key]
+
+                for price_data in region_pricing_data.values():
+                    if "ondemand" in price_data and is_float(price_data["ondemand"]):
+                        price_data["ondemand"] = float(price_data["ondemand"])
+                    if "reserved" in price_data and isinstance(price_data["reserved"], dict):
+                        for terms, price in price_data["reserved"].items():
+                            if is_float(price):
+                                price_data["reserved"][terms] = float(price)
 
 
 def get_ccfdataset() -> dict:
