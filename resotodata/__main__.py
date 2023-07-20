@@ -29,11 +29,14 @@ def update_colors() -> None:
 
 
 def update_ccfdataset() -> None:
-    write_ccfdataset()
+    ccfdataset = get_ccfdataset()
+    write_ccfdataset(ccfdataset)
 
 
 def update_instances() -> None:
-    write_instances()
+    instances = {"aws": get_aws_instances()}
+    strip_instances(instances)
+    write_instances(instances)
 
 
 def gen_digitalocean_regions() -> dict:
@@ -219,9 +222,7 @@ def write_colors() -> None:
         f.write("\n")
 
 
-def write_ccfdataset() -> None:
-    ccfdataset = get_ccfdataset()
-
+def write_ccfdataset(ccfdataset: dict) -> None:
     ccfdataset_file = resource_filename("resotodata", "data/ccfdataset.json")
     print(f"Writing CCF dataset to {ccfdataset_file}")
     with open(ccfdataset_file, "w") as f:
@@ -229,11 +230,7 @@ def write_ccfdataset() -> None:
         f.write("\n")
 
 
-def write_instances() -> None:
-    instances = get_instances()
-
-    strip_instances(instances)
-
+def write_instances(instances: dict) -> None:
     instances_file = resource_filename("resotodata", "data/instances.json")
     print(f"Writing instances dataset to {instances_file}")
     with open(instances_file, "w") as f:
@@ -241,7 +238,7 @@ def write_instances() -> None:
         f.write("\n")
 
 
-def is_float(n):
+def is_float(n) -> bool:
     try:
         _ = float(n)
     except ValueError:
@@ -252,14 +249,19 @@ def is_float(n):
 
 def strip_instances(instances: dict) -> None:
     print("Stripping instance data")
+    spot_keywords = ["spot", "spot_min", "spot_max"]
     for cloud, cloud_data in instances.items():
         for instance_type, instance_type_data in cloud_data.items():
             for region, region_pricing_data in instance_type_data.get("pricing", {}).items():
                 for key in list(region_pricing_data.keys()):
                     if key not in ("dedicated", "linux", "unknown"):
-                        print(f"Removing {key} from {cloud} {instance_type} {region} pricing data")
                         del region_pricing_data[key]
-
+                if "linux" in region_pricing_data:
+                    for keyword in spot_keywords:
+                        try:
+                            del region_pricing_data["linux"][keyword]
+                        except KeyError:
+                            pass
                 for price_data in region_pricing_data.values():
                     if "ondemand" in price_data and is_float(price_data["ondemand"]):
                         price_data["ondemand"] = float(price_data["ondemand"])
@@ -326,10 +328,6 @@ console.log(JSON.stringify(combinedDictionary, null, 2))
         )
 
     return json.loads(result.stdout)
-
-
-def get_instances() -> dict:
-    return {"aws": get_aws_instances()}
 
 
 def get_aws_instances() -> dict:
