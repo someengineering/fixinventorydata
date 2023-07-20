@@ -327,7 +327,26 @@ console.log(JSON.stringify(combinedDictionary, null, 2))
             ["./node_modules/.bin/ts-node", "export.ts"], cwd=tmpdir, check=True, capture_output=True, text=True
         )
 
-    return json.loads(result.stdout)
+    ccfdataset = json.loads(result.stdout)
+
+    # Add missing AMD EPYC 3rd Gen data to AWS
+    aws_cloud_constants = ccfdataset.get("aws", {}).get("AWS_CLOUD_CONSTANTS", {})
+    azure_cloud_constants = ccfdataset.get("azure", {}).get("AZURE_CLOUD_CONSTANTS", {})
+    if (
+        not "AMD EPYC 3rd Gen" in aws_cloud_constants["MIN_WATTS_BY_COMPUTE_PROCESSOR"]
+        and "AMD EPYC 3rd Gen" in azure_cloud_constants["MIN_WATTS_BY_COMPUTE_PROCESSOR"]
+    ):
+        aws_cloud_constants["MIN_WATTS_BY_COMPUTE_PROCESSOR"]["AMD EPYC 3rd Gen"] = azure_cloud_constants[
+            "MIN_WATTS_BY_COMPUTE_PROCESSOR"
+        ]["AMD EPYC 3rd Gen"]
+        aws_cloud_constants["MAX_WATTS_BY_COMPUTE_PROCESSOR"]["AMD EPYC 3rd Gen"] = azure_cloud_constants[
+            "MAX_WATTS_BY_COMPUTE_PROCESSOR"
+        ]["AMD EPYC 3rd Gen"]
+        aws_cloud_constants["MEMORY_BY_COMPUTE_PROCESSOR"]["AMD EPYC 3rd Gen"] = azure_cloud_constants[
+            "MEMORY_BY_COMPUTE_PROCESSOR"
+        ]["AMD EPYC 3rd Gen"]
+
+    return ccfdataset
 
 
 def get_aws_instances() -> dict:

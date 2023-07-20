@@ -14,7 +14,8 @@
                 "Ivy Bridge": 9.67,
                 "AMD EPYC 1st Gen": 89.6,
                 "AMD EPYC 2nd Gen": 129.78,
-                "AWS Graviton2": 129.78
+                "AWS Graviton2": 129.78,
+                "AMD EPYC 3rd Gen": 128
             },
             "MIN_WATTS_AVG": 0.74,
             "MIN_WATTS_BY_COMPUTE_PROCESSOR": {
@@ -37,7 +38,8 @@
                 "Nvidia Tesla A100": 46,
                 "Nvidia Tesla P4": 9,
                 "Nvidia Tesla P100": 36,
-                "AMD Radeon Pro V520": 26
+                "AMD Radeon Pro V520": 26,
+                "AMD EPYC 3rd Gen": 0.45
             },
             "MAX_WATTS_AVG": 3.5,
             "MAX_WATTS_BY_COMPUTE_PROCESSOR": {
@@ -60,7 +62,8 @@
                 "Nvidia Tesla A100": 407,
                 "Nvidia Tesla P4": 76.5,
                 "Nvidia Tesla P100": 306,
-                "AMD Radeon Pro V520": 229
+                "AMD Radeon Pro V520": 229,
+                "AMD EPYC 3rd Gen": 2.02
             },
             "NETWORKING_COEFFICIENT": 0.001,
             "MEMORY_COEFFICIENT": 0.000392,
