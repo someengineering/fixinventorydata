@@ -4,7 +4,7 @@ from pkg_resources import resource_filename
 
 
 class LazyLoadedDict(dict):
-    BASE_PACKAGE = "resotodata"
+    BASE_PACKAGE = "fixinventorydata"
     DATA_DIR = "data"
 
     def __init__(self, filename):

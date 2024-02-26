@@ -118,7 +118,7 @@ def gen_aws_regions() -> dict:
 
 
 def write_regions(regions: dict) -> None:
-    regions_file = resource_filename("resotodata", "data/regions.json")
+    regions_file = resource_filename("fixinventorydata", "data/regions.json")
     print(f"Writing regions to {regions_file}")
     with open(regions_file, "w") as f:
         json.dump(regions, f, indent=4)
@@ -179,7 +179,7 @@ def aws_regions() -> dict:
 def lookup_location(short_region: str, long_region: str) -> Optional[Location]:
     try:
         print(f"Looking up {short_region} {long_region}")
-        geolocator = Nominatim(user_agent="ResotoMisc")
+        geolocator = Nominatim(user_agent="FixInventoryMisc")
         loc = geolocator.geocode(long_region)
         print(f"Found {loc}")
         return loc
@@ -189,7 +189,7 @@ def lookup_location(short_region: str, long_region: str) -> Optional[Location]:
 
 def write_colors() -> None:
     colors = {
-        "resoto": {
+        "fixinventory": {
             "light": {
                 "main": [0x762DD7, 0x0A253F, 0xAF62F1],
                 "contrast": [0xFFAF37, 0xE59010, 0xB86200],
@@ -215,7 +215,7 @@ def write_colors() -> None:
         },
     }
 
-    colors_file = resource_filename("resotodata", "data/colors.json")
+    colors_file = resource_filename("fixinventorydata", "data/colors.json")
     print(f"Writing colors to {colors_file}")
     with open(colors_file, "w") as f:
         json.dump(colors, f, indent=4)
@@ -223,7 +223,7 @@ def write_colors() -> None:
 
 
 def write_ccfdataset(ccfdataset: dict) -> None:
-    ccfdataset_file = resource_filename("resotodata", "data/ccfdataset.json")
+    ccfdataset_file = resource_filename("fixinventorydata", "data/ccfdataset.json")
     print(f"Writing CCF dataset to {ccfdataset_file}")
     with open(ccfdataset_file, "w") as f:
         json.dump(ccfdataset, f, indent=4)
@@ -231,7 +231,7 @@ def write_ccfdataset(ccfdataset: dict) -> None:
 
 
 def write_instances(instances: dict) -> None:
-    instances_file = resource_filename("resotodata", "data/instances.json")
+    instances_file = resource_filename("fixinventorydata", "data/instances.json")
     print(f"Writing instances dataset to {instances_file}")
     with open(instances_file, "w") as f:
         json.dump(instances, f, indent=4)

@@ -1,4 +1,4 @@
-import resotodata
+import fixinventorydata
 from setuptools import setup, find_packages
 
 
@@ -16,19 +16,19 @@ with open("README.md") as f:
 
 
 setup(
-    name=resotodata.__title__,
-    version=resotodata.__version__,
-    description=resotodata.__description__,
-    license=resotodata.__license__,
+    name=fixinventorydata.__title__,
+    version=fixinventorydata.__version__,
+    description=fixinventorydata.__description__,
+    license=fixinventorydata.__license__,
     packages=find_packages(),
     long_description=readme,
     long_description_content_type="text/markdown",
     entry_points={
         "console_scripts": [
-            "resotodata-update-regions = resotodata.__main__:update_regions",
-            "resotodata-update-colors = resotodata.__main__:update_colors",
-            "resotodata-update-ccfdataset = resotodata.__main__:update_ccfdataset",
-            "resotodata-update-instances = resotodata.__main__:update_instances",
+            "fixinventorydata-update-regions = fixinventorydata.__main__:update_regions",
+            "fixinventorydata-update-colors = fixinventorydata.__main__:update_colors",
+            "fixinventorydata-update-ccfdataset = fixinventorydata.__main__:update_ccfdataset",
+            "fixinventorydata-update-instances = fixinventorydata.__main__:update_instances",
         ]
     },
     include_package_data=True,
