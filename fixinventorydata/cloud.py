@@ -1,4 +1,4 @@
-from resotodata.utils import LazyLoadedDict
+from fixinventorydata.utils import LazyLoadedDict
 
 
 regions = LazyLoadedDict("regions.json")

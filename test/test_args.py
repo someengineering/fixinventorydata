@@ -1,4 +1,4 @@
-from resotodata.cloud import regions
+from fixinventorydata.cloud import regions
 
 
 def test_data():

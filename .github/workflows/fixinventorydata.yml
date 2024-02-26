@@ -1,4 +1,4 @@
-name: resotodata
+name: fixinventorydata
 on:
   push:
     tags:
@@ -7,12 +7,12 @@ on:
         - main
   pull_request:
     paths:
-      - 'resotodata/**'
+      - 'fixinventorydata/**'
       - '.github/**'
 
 jobs:
-  resotodata:
-    name: "resotodata"
+  fixinventorydata:
+    name: "fixinventorydata"
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -21,7 +21,7 @@ jobs:
       - name: Setup Python
         uses: actions/setup-python@v2
         with:
-          python-version: '3.10'
+          python-version: '3.11'
           architecture: 'x64'
 
       - name: Restore dependency cache
@@ -53,5 +53,5 @@ jobs:
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
           user: __token__
-          password: ${{ secrets.PYPI_RESOTODATA }}
+          password: ${{ secrets.PYPI_FIXINVENTORYDATA }}
           packages_dir: ./dist/

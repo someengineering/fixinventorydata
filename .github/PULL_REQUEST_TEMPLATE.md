@@ -10,7 +10,7 @@
 
 - [ ] Add test coverage for new or updated functionality
 - [ ] Lint and test with `tox`
-- [ ] Document new or updated functionality (someengineering/resoto.com#XXXX)
+- [ ] Document new or updated functionality (someengineering/inventory.fix.security#XXXX)
 
 # Issues Fixed
 
@@ -21,4 +21,4 @@
 
 # Code of Conduct
 
-By submitting this pull request, I agree to follow the [code of conduct](https://resoto.com/code-of-conduct).
+By submitting this pull request, I agree to follow the [code of conduct](https://inventory.fix.security/code-of-conduct).
