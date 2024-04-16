@@ -87,7 +87,11 @@ def gen_gcp_regions() -> dict:
         if len(long_region) == 0:
             previous_element = loc.previous_element
             while previous_element:
-                if previous_element.name == "a" and 'cloud-link' in previous_element.get('class', []) and len(previous_element.text.strip()) > 2:
+                if (
+                    previous_element.name == "a"
+                    and "cloud-link" in previous_element.get("class", [])
+                    and len(previous_element.text.strip()) > 2
+                ):
                     long_region = previous_element.text.strip()
                     break
                 previous_element = previous_element.previous_element
