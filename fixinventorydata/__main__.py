@@ -83,7 +83,14 @@ def gen_gcp_regions() -> dict:
     r = requests.get(locations_url)
     soup = BeautifulSoup(r.text, "html.parser")
     for loc in soup.find_all("span", {"class": "zone"}):
-        long_region = loc.previous_sibling
+        long_region = loc.previous_sibling.text.strip()
+        if len(long_region) == 0:
+            previous_element = loc.previous_element
+            while previous_element:
+                if previous_element.name == "a" and 'cloud-link' in previous_element.get('class', []) and len(previous_element.text.strip()) > 2:
+                    long_region = previous_element.text.strip()
+                    break
+                previous_element = previous_element.previous_element
         short_region = loc.text
         if "(" in short_region and ")" in short_region:
             short_region = short_region[short_region.find("(") + 1 : short_region.find(")")]
@@ -148,6 +155,8 @@ gcp_override = {
     "europe-west4": "Eemshaven, Netherlands",
     "europe-north1": "Hamina, Finland",
     "southamerica-west1": "Santiago, Chile",
+    "me-central1": "Doha, Qatar",
+    "me-central2": "Dammam, Saudi Arabia",
 }
 
 
